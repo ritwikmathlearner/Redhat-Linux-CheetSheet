@@ -56,3 +56,51 @@ Use `mkdir` to create a directory. To create **nested directories** use `mkdir -
 Use `rmdir` to remove a directory. To remove **nested directories** use `rmdir -p`. `rmdir -p this/is/a/test` will remove a directory structure of **this/is/a/test**. If a directory has file(s) then rmdir will not work.
 
 Use `rm -rf` rmoves the directory and all the files in it. `rm -rf` deletes only one directory. `rm -rf this/is/a/test` will delete only test and all the files in test directory.
+
+# File Listing
+
+`ls` for lisiting the names of files and directories. `ls -l` for long listing format. Long list formar has the follwoing information
+1. The file type.
+2. The file permissions **-rw-rw-r--**
+3. Number of hard links to the file **1**
+4. File owner **username**
+5. File group **root/adminuser**
+6. File size **28 in bytes**
+7. Date and Time of last modification **Aug 30 04:03**
+8. File name **sample.txt**
+
+`ls` does not show hidden files. `-a` can be used for seeing all the hidden files. `-a` shows **. & ..**. To exclude these `-A` can be used.
+
+`ls -F` shows the file types. Files can be of three types **directory**, **link** and **executable**.
+
+1. Directory - **/**
+2. Link - **@**
+3. Executable - *
+
+Some of the useful commands are as follows
+
+1. `ls -r` show list in reverse order
+2. `ls -t` most recently modified first
+3. `ls -d` to show only directory names
+4. `ls -R` subdirectories and files recursively
+5. `ls -s` show the size in blocks
+6. `ls -sh` show the size in human readable format
+7. `tree` subdirectories and files recursively as a tree structure
+7. `tree -d` to show only directory names
+
+For directories and files named with **space** use the quotes. Example, `ls -l my notes` will not work but `ls -l "my notes"` will show all the subdirectories and files within "my notes". 
+
+# Symlink
+
+Symbolic link points to another file or folder in the computer. 
+
+`ln -s <existing file/folder path> <path of symlink>` creates a new symlinc. `-s` stands for soft. Instead of `-s`, `-symbolic` can also be used.
+
+Symlink can be removed using one of the three ways
+
+1. `ls -l <path-to-assumed-symlink>`
+2. `unlink <path-to-symlink>`
+3. `rm <path-to-symlink>`
+
+`find /home/user/Desktop -xtype l` finds the broken links.
+`find /home/user/Desktop -xtype l -delete` deletes the broken links as well.
