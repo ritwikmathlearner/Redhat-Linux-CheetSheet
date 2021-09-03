@@ -1,3 +1,19 @@
+# Using Linux
+
+Linux can be installed as bootable or using hypervisor mainly. Windows 10 now allows installing linux natively, The Windows Subsystem for Linux or WSL. Docker Engine is used for containerized workflow.
+
+APT is the default package manager for LINUX. `apt-get` is CLI for APT package manager. Linux comes with Shell and/or GUI. Linux systems installed in server comes with onlu Shell by deauflt. 
+`apt-get update` is used for synchronization of package index files from their sources again. 
+`apt-get upgrade` is used for installing latest version of packages of the applications that are currently installed.
+`apt-get install` for installing or upgrading package(s)
+`apt-get remove` removes a package from the system
+`apt-get purge` removes package as well as configuration files
+`apt-get check` updates the package cache and checks for broken dependencies
+`apt-get autoremove` removes pakcages that were installed as dependency of other packages and is not required anymore.
+`apt-get --reinstall` removes and install the latest version of the package
+
+`sudo` is for super user. It stands for **super user do!**. If current user does not have permission to do something `sudo` is the command to run the command as super user. Example, `rmdir test` if current user does not permission to delte the folder then **rmdir: failed to remove 'test/': Permission denied** is displayed. Current user does not have write permission on the current folder. But super user can do it all. `sudo rmdir test` does the job as this command invokes superuser insted of current user.
+
 # Linux Directory Structure
 
 Linux filesystem/directory structure is like a tree
@@ -104,3 +120,71 @@ Symlink can be removed using one of the three ways
 
 `find /home/user/Desktop -xtype l` finds the broken links.
 `find /home/user/Desktop -xtype l -delete` deletes the broken links as well.
+
+# File Directory and Permissions
+
+Typical out put of `ls -l`
+
+1. drwxr-xr-x 1 ritwik ritwik   512 Aug 27 23:08 first.website
+2. -rwxr-xr-x 1 root   root   10918 Jun  1 01:36 index.html
+3. lrwxrwxrwx 1 root   root      17 Sep  2 22:23 laravel -> /var/www/laravel/
+
+The symbols **d**, **-**. **l** means **directory**, **regular file** and **symbolic link** respectively
+The symbols **r**, **w**. **x** means **read**, **write** and **execute** respectively
+
+### File
+Read means user can see file's contents. `cat index.html` is allowed fot the current user.
+Write means file can be modified by curent user.
+Execute means user can execute the file.
+
+### Directory
+Read means user can see dirctory's contents. If user does not have read permission then file names within the directory will not appear.
+Write means contents cannot be added or deleted from the directory.
+Execute means user can access contents and metadas for entires.
+
+Permission categories can be of four types 
+
+1. User (u)
+2. Group (g)
+3. Other (o)
+4. All (a)
+
+Everyh user has to be atleast one group. A user can be in many groups. Team lead can be in Team Leaders and Developers groups. 
+`groups` or `id -Gn` shows the name of groups which user is member of. Example,
+
+**-rwxr-xr-x 1 root   root   10918 Jun  1 01:36 index.html** in this long listing format of index.html, (from left to right) **-** means type, **rwx** means user permission, **r-x** means file's group permission and **r-x** means permission to other users. The **-** in user, groups and all user permission means specific permission is not given. Example, file's group and other users are not allowed to modify the file as write permissionis missing.
+
+Permission can be changed using combination of **chomd**, **u(user)/g(group)/o(other)/a(all)**, **+(add)/-(substract)/=(equal)** and **r(read)/w(write)/x(execute)**. 
+
+`$ ls -l test.data` creates a new file withe **-rw-r--r-- 1 root root 0 Sep  2 22:54 test.data** long listing format.
+`sudo chmod g+w test.data` will add write permission to file's group.
+`sudo chmod g-w test.data` will remove write permission from file's group.
+`sudo chmod g=rw test.data` will set read and write permission to file's group.
+`sudo chmod o= test.data` will set remove read, write and execute permission from others.
+
+The Octal, Binary and String representation of permission for chmod are as following
+
+1. **0** 	- **0** 	- 	**---**
+2. **1** 	- **1** 	- 	**--x**
+3. **2** 	- **10** 	- 	**-w-**
+4. **3** 	- **11** 	- 	**-wx**
+5. **4** 	- **100**	- 	**r--**
+6. **5** 	- **101** 	- 	**r-x**
+7. **6** 	- **110** 	- 	**rw-**
+8. **7** 	- **111** 	- 	**rwx**
+
+`sudo chgrp group_name file/directory` to change group of file/directory. **-rw-r--r-- 1 root   ritwik    18 Sep  2 22:55 test.data** will change group of this file to **ritwik** from **root**. 
+`sudo chgrp -h ritwik laravel` will change teh group of symlink. As **symlinks are protected**, and you cannot operate on target files, previous command does not work on it.
+
+The Octal, Binary, String Directory and String File representation of permission for umask are as following
+
+1. **0** 	- **0** 	- 	**rwx**		- 	**rw-**
+2. **1** 	- **1** 	- 	**rw-**		- 	**rw-**
+3. **2** 	- **10** 	- 	**r-x**		- 	**r--**
+4. **3** 	- **11** 	- 	**r--**		- 	**r--**
+5. **4** 	- **100**	- 	**-wx**		- 	**-w-**
+6. **5** 	- **101** 	- 	**-w-**		- 	**-w-**
+7. **6** 	- **110** 	- 	**--x**		- 	**---**
+8. **7** 	- **111** 	- 	**---**		- 	**---**
+
+`chmod 0755` and `umask 0022` is same as `chmod 755` and `umask 022`. The **0** in the beginning is called setuid, setgid and sticky.
