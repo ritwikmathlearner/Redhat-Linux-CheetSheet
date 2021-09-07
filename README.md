@@ -34,9 +34,33 @@ The **~** directory means the user's home directory. Example, **/home/username/*
 
 `.` means current directory and `..` means parent direcrtory.
 
+
 # Shell
 
 It is the **default interface** to linux. Also called the **Command Line Interpreter**. At the start shell diplays a promt/shell prompt. 
+
+Linux shell is case sensitive. Using `CAT` insted of `cat` will not work.
+
+Metacharacters are as follows (WSL does not support all metacharacters)
+
+1. **`>`** Output redirection. Example, `pwd > command` creates a file named **command**. `cat command` displays the output of `pwd` 
+2. **`>>`** Output redirection – append. Example, `echo $SHELL >> command` append `echo $SHELL` command output into **command** file
+3. **`<`** Input redirection.
+4. **`<<`** Input redirection.
+5. **`*`** File substitution wildcard. Example, `ls -l Do*` will show list of contents of both Documents and Downloads 
+6. **`?`** File substitution wildcard. Example, `ls t??t.doc` will show the file name **test.doc**. Any file or directory matches the pattern **t__t.doc** will be displayed as the two characters are matched using **?** wildcard.  
+7. **`[ ]`** File substitution wildcard. `ls l[ai]st` will show **last** and **list** both
+8. **`|`** Pipe for using multiple commands. 
+9. **`;`** Command execution sequence.
+10. **`( )`** Group of commands in the execution sequence.
+11. **`||`** Conditional execution (OR).
+12. **`&&`** Conditional execution (AND). `mkdir first && cd $_` create a directory and then cd into it.
+13. **`&`** Run a command in the background.
+14. **`#`** Use a command directly in the shell.
+15. **`$`** Variable value expansion.
+16. **`\`** The escape character.
+17. **``cmd``** Command substitution.
+18. **`$(cmd)`** Command substitution. Example, `a=$(ls -l)` stores the value of `ls -l` into variable **a**. To print the value of a, `echo "$a"` or `printf "%s", $a` can be used.
 
 # Basic Linux Commands
 
