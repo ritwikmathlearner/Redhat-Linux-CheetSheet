@@ -61,6 +61,7 @@ Metacharacters are as follows (WSL does not support all metacharacters)
 16. **`\`** The escape character.
 17. **``cmd``** Command substitution.
 18. **`$(cmd)`** Command substitution. Example, `a=$(ls -l)` stores the value of `ls -l` into variable **a**. To print the value of a, `echo "$a"` or `printf "%s", $a` can be used.
+19. **`file`** command displays the type. `file CheetSheet/Typescript/README.md` shows the result **CheetSheet/Typescript/README.md: ASCII text** 
 
 # Basic Linux Commands
 
@@ -212,3 +213,18 @@ The Octal, Binary, String Directory and String File representation of permission
 8. **7** 	- **111** 	- 	**---**		- 	**---**
 
 `chmod 0755` and `umask 0022` is same as `chmod 755` and `umask 022`. The **0** in the beginning is called setuid, setgid and sticky.
+
+### Find
+
+`find` command finds files **recursively** that match with the specified expression. If no argument is specified then all the files in current directory are returned.
+
+`find` has few options as below
+1. `-name` matches a pattern with case sensivity. Directories and files with matched pattern are returned. 
+2. `-iname` matches a pattern ignoring case. `find ~/Documents/ -iname readme.md` finds files **README.md**.
+3. `-ls` performs ls on each found files/directories. `find ~/Documents/ -iname readme.md -ls` performs `ls` command on found files.
+4. `-mtime` is for finding files that are specific days old. `find . -mtime +5 -mtime -15` find files and directories in current directory that are **more than 5 days old** but **less than 15 days old**. 
+5. `-size` find files that matches the file size. `find ~/Documents/ -iname readme.md -size +1k` finds the files named **readme.md** that are **more than 1 kb** in size.
+6. `-newer` find all the files that are newer than specified file. `find . -newer CheetSheet/Typescript/README.md` find files that are newer than **README.md**. 
+7. `-exec {} \` to execute command on files or directories. `{}` represents the directory or file. `find ~/Documents/ -iname readme.md -exec cat {} \;` execute `cat` command on each found files.
+8. `-type f/d` find only directories or files if d or f is specified respectively. `find . -type d` finds only directories in current directory. 
+9. `locate` can also be used to find files and directories. Searching for a file or directory can be easier with the locate command. `locate finger` will return both files and directories that have the word finger in the file or directory name.
