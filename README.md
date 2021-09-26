@@ -214,7 +214,7 @@ The Octal, Binary, String Directory and String File representation of permission
 
 `chmod 0755` and `umask 0022` is same as `chmod 755` and `umask 022`. The **0** in the beginning is called setuid, setgid and sticky.
 
-### Find
+# Find
 
 `find` command finds files **recursively** that match with the specified expression. If no argument is specified then all the files in current directory are returned.
 
@@ -228,3 +228,32 @@ The Octal, Binary, String Directory and String File representation of permission
 7. `-exec {} \` to execute command on files or directories. `{}` represents the directory or file. `find ~/Documents/ -iname readme.md -exec cat {} \;` execute `cat` command on each found files.
 8. `-type f/d` find only directories or files if d or f is specified respectively. `find . -type d` finds only directories in current directory. 
 9. `locate` can also be used to find files and directories. Searching for a file or directory can be easier with the locate command. `locate finger` will return both files and directories that have the word finger in the file or directory name.
+
+# Display Content
+
+1. `cat` display contents of file
+2. `more` browse through a text file
+3. `less` lesser features than `more`
+4. `head` output beginning portion of the file
+5. `tail1 output the ending portion of the file
+
+`head` and `tail` by default show 10 lines. use `head/tail -20 file` to increase decrease or increase the number of lines.
+
+To track the changes in file in real time use tail for that. `tail -f file`.
+
+# Manage files and directories
+
+1. `rm file` to remove file. 
+2. `rm -r dir` to remove a directory and delete its contents recursively. 
+3. `rm -f file` to remove a file forecefully
+4. Always use the `ls` command to check which files and directories will be deleted before running the `rm` command
+5. `cp` to copy a file. `cp README.md README.md.bak`
+6. `cp file1 file2 dir` will copy both files into **dir** directory
+7. `cp -r dir dir2` will copy all the files and directories within dir to dir2. If dir2 does not exists, it will be created
+8. `cp -i file1 file2` will open copy command in interactive mode. It will show options to overwrite and all.
+9. `cp -r dir dir2 dir3` will copy all the files and directories within dir and dir2 to dir3.
+10. `diff` to show difference between two files
+11. `mv` to move or rename a file
+12. `mv dir dir2` will move the dir directory within dir2 directory
+13. `mv dir dir4` will rename the directory to **dir4**
+14. `mv -i` for interactive mv
